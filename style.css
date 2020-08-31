@@ -1,0 +1,57 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+    font-family: arial;
+}
+
+main {
+    margin: 10%;
+}
+
+header {
+    background-color: rgb(221, 175, 175);
+}
+
+ header h1 {
+     /* outline: blue solid 2px; */
+     margin-top: 250px;
+     text-align: center;
+ }
+
+ header h2 {
+     /* outline: 2px solid blue; */
+     font-size: 50px;
+     text-align: center;
+ }
+
+ h1 {
+     font-size: 70px;
+}
+
+header > div {
+    /* outline: green solid 2px; */
+    display: flex;
+    justify-content: space-around;
+}
+
+header > div > p {
+    /* outline: red dotted 2px; */
+    margin: 10px 5px;
+}
+
+form {
+    /* outline: green dashed 3px; */
+    padding-top: 50px;
+    text-align: center;
+}
+
+input {
+    font-size: 20px;
+    /* background-color: green;
+    color: yellow; */
+}
+
+ul {
+    list-style-type: none;
+}

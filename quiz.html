@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <p><a href="index.html">Index Page</a></p>
+        <h2>
+        Anatomy Quiz
+        </h2>
+        <div class="trackers">
+            <p>
+                Current Question: X / 8
+            </p>
+            <p>
+                Correct: X / Y
+            </p>
+        </div>
+    </header>
+    <main>
+        <div>
+        <p>
+            1.) Question goes here:
+        </p>
+        <ul>
+            <li>
+                <input type="radio" id="answer" name="answer" value="Answer 1">
+                <label for="answer1">Answer 1</label>
+            </li>
+            <li>
+                <input type="radio" id="answer" name="answer" value="Answer 2">
+                <label for="answer2">Answer 2</label>
+            </li>
+            <li>
+                <input type="radio" id="answer" name="answer" value="Answer 3">
+                <label for="answer3">Answer 3</label>
+            </li>
+            <li>
+                <input type="radio" id="answer" name="answer" value="Answer 4">
+                <label for="answer4">Answer 3</label>
+            </li>
+        </ul></div>
+        
+        <form action="/quiz.html">
+            <label for="start-quiz"></label>
+            <input id="start-quiz" type="button" value="Submit Answer">
+        </form>
+    </main>
+    
+</body>
+</html>
