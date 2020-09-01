@@ -23,13 +23,42 @@ function renderQuestion() {
         <p>
             ${questions[0].question}
         </p>
-        
+        <ul>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 1">
+                    <label for="answer1">${questions[0].answers[0]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 2">
+                    <label for="answer2">${questions[0].answers[1]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 3">
+                    <label for="answer3">${questions[0].answers[2]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 4">
+                    <label for="answer4">${questions[0].answers[3]}</label>
+                </li>
+            </ul>
+            
+            <form action="/quiz.html">
+                <input id="question-submit" type="button" value="Submit Answer">
+            </form>
     </div>`
     );
 };
 
 
+function submitAnswer() {
+    $('.question-submit').on('click', event => {
 
+    })
+}
+
+function checkAnswer() {
+     if ()
+}
 
 
 
