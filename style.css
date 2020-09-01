@@ -6,7 +6,8 @@ body {
 }
 
 main {
-    margin: 10%;
+    margin: 10% 0%;
+    background-color: rgb(221, 175, 175);
 }
 
 header {
@@ -54,4 +55,8 @@ input {
 
 ul {
     list-style-type: none;
+}
+
+.question {
+    padding: 50px 250px;
 }
