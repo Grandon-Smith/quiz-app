@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style>
+        /* body {
+          background-image: url('https://image.freepik.com/free-vector/white-magnetic-board_158677-76.jpg');
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+        } */
+        </style>
     <title>QuizApp Wireframe</title>
 </head>
 <body>
@@ -14,14 +21,15 @@
     </h1>
 </header>
 <main>
-    <div>
-        <form action="/quiz.html">
+    <div class="js-question-area">
+        <form class="js-start-form">
             <label for="start-quiz"></label>
-            <input id="start-quiz" type="button" value="Start Quiz!">
+            <input id="start-quiz js-start-quiz" type="button" value="Start Quiz!">
         </form>
         
     </div>
 </main>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"></script> 
 </body>
 </html>
