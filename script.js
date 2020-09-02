@@ -1,67 +1,98 @@
 
+
+//------------ SCORE KEEPERS-----------
+
+let score = 0;
+let currentQuestion = 0;
+
+function updateScore() {
+    score++;
+    $('.score').text(score);
+}
+
+function updateCurrentQuestion() {
+    currentQuestion++;
+    $('.current-question').text(currentQuestion);
+
+}
+
+//------------ SCORE KEEPERS-----------
+
+
 function removeStartQuizButton() {
     $('.js-start-form').remove();
     console.log("removeStartQuiz ran");
 };
+
+function addTrackers() {
+    $('header').append(`
+    <div class="trackers">
+            <p>
+                <span class="current-question">Current Question: ${currentQuestion} / 8</span>
+                <span class="score">Correct: ${score} / ${currentQuestion}</span>
+            </p>
+        </div>`
+        );
+};
+
+
+
+function renderQuestion() {
+    $('.js-question-area').append( `
+    <div class="question">
+        <p>
+            ${questions[currentQuestion].question}
+        </p>
+        <form>
+            <ul>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 1">
+                    <label for="answer1">${questions[currentQuestion].answers[0]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 2">
+                    <label for="answer2">${questions[currentQuestion].answers[1]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 3">
+                    <label for="answer3">${questions[currentQuestion].answers[2]}</label>
+                </li>
+                <li>
+                    <input type="radio" id="answer" name="answer" value="Answer 4">
+                    <label for="answer4">${questions[currentQuestion].answers[3]}</label>
+                </li>
+            </ul>
+        
+            <input id="question-submit" type="button" value="Submit Answer">
+        </form>
+    </div>`
+    );
+};
+
 
 
 function startQuiz() {
     $('.js-start-form').on('click', event => {
         removeStartQuizButton();
         renderQuestion();
+        updateCurrentQuestion();
+        addTrackers();
     });
 };
 
 
-// function addSubmitButton() {
+ 
 
-// }
-
-function renderQuestion() {
-    $('.js-question-area').append( `
-    <div class="question">
-        <p>
-            ${questions[0].question}
-        </p>
-        <ul>
-                <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 1">
-                    <label for="answer1">${questions[0].answers[0]}</label>
-                </li>
-                <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 2">
-                    <label for="answer2">${questions[0].answers[1]}</label>
-                </li>
-                <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 3">
-                    <label for="answer3">${questions[0].answers[2]}</label>
-                </li>
-                <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 4">
-                    <label for="answer4">${questions[0].answers[3]}</label>
-                </li>
-            </ul>
-            
-            <form action="/quiz.html">
-                <input id="question-submit" type="button" value="Submit Answer">
-            </form>
-    </div>`
-    );
-};
 
 
 function submitAnswer() {
-    $('.question-submit').on('click', event => {
+    $('.js-question-area').on('click', '#question-submit', event => {
+        updateCurrentQuestion();
+        renderQuestion();
+    });
+};
 
-    })
-}
-
-function checkAnswer() {
-     if ()
-}
-
-
-
+$(submitAnswer());
 
 
 
