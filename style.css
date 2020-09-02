@@ -1,6 +1,6 @@
-* {
+/* * {
     outline: blue dotted 2px;
-}
+} */
 
 body {
     margin: 0px;
@@ -12,14 +12,14 @@ body {
 
 main {
     margin: 5% 0%;
-    /* background-color: rgb(221, 175, 175); */
+    background-color: rgb(221, 175, 175);
 }
 
-/* 
+
 header {
      background-color: rgb(221, 175, 175);
 }
- */
+
 
  header h1 {
      /* outline: blue solid 2px; */
@@ -30,26 +30,30 @@ header {
 
 
 header > div {
-    /* outline: green solid 2px; */
+    outline: green solid 2px;
     display: flex;
     justify-content: space-around;
 }
 
 header > div > p {
-    /* outline: red dotted 2px; */
+    outline: red dotted 2px;
     margin: 10px 5px;
 }
 
 form {
-    /* outline: green dashed 3px; */
+    outline: green dashed 3px;
     padding-top: 50px;
-    /* text-align: center; */
 }
 
 input {
     font-size: 20px;
-    
+    text-align: center;
 }
+
+.start-form {
+    text-align: center;
+}
+
 
 #question-submit {
     margin-left: 45%;

@@ -8,12 +8,13 @@ let currentQuestion = 0;
 function updateScore() {
     score++;
     $('.score').text(score);
+    // console.log("updateScore ran")
 }
 
 function updateCurrentQuestion() {
     currentQuestion++;
     $('.current-question').text(currentQuestion);
-
+    // console.log("updateCurrentQu ran");
 }
 
 //------------ SCORE KEEPERS-----------
@@ -32,33 +33,34 @@ function addTrackers() {
                 <span class="score">Correct: ${score} / ${currentQuestion}</span>
             </p>
         </div>`
-        );
+    );
 };
 
 
 
 function renderQuestion() {
+    console.log(currentQuestion);
     $('.js-question-area').append( `
     <div class="question">
-        <p>
+        <p class="js-question">
             ${questions[currentQuestion].question}
         </p>
         <form>
             <ul>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 1">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[0]}">
                     <label for="answer1">${questions[currentQuestion].answers[0]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 2">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[1]}">
                     <label for="answer2">${questions[currentQuestion].answers[1]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 3">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[2]}">
                     <label for="answer3">${questions[currentQuestion].answers[2]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="Answer 4">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[3]}">
                     <label for="answer4">${questions[currentQuestion].answers[3]}</label>
                 </li>
             </ul>
@@ -75,22 +77,48 @@ function startQuiz() {
     $('.js-start-form').on('click', event => {
         removeStartQuizButton();
         renderQuestion();
-        updateCurrentQuestion();
         addTrackers();
     });
 };
 
 
+
+function hidePreviousQuestion() {
+    event.stopPropagation();
+    $('p').hide();
+    console.log("hidePrev ran");
+};
  
+
+function incorrectAnswer() {
+    $('.js-question-area').append(`
+    <p>Sorry, the correct answer was ${questions[currentQuestion].correct}</p>
+    `);
+};
 
 
 
 function submitAnswer() {
     $('.js-question-area').on('click', '#question-submit', event => {
-        updateCurrentQuestion();
-        renderQuestion();
+        event.preventDefault();
+        let correct = questions[currentQuestion].correct;
+        let selected = $('input:checked');
+        let answer = selected.val();
+        console.log(answer);
+        if (answer === undefined) {
+            console.log("need answer");
+        } else if (answer === correct) {
+            updateCurrentQuestion();
+            updateScore();
+        } else if (answer !== correct) {
+            incorrectAnswer();
+            updateCurrentQuestion();
+        };
     });
 };
+
+
+
 
 $(submitAnswer());
 
