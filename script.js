@@ -7,14 +7,14 @@ let currentQuestion = 0;
 
 function updateScore() {
     score++;
-    $('.score').text(score);
-    // console.log("updateScore ran")
+    $('.score').text(`Score: ${score} / 8`);
+    //console.log("updateScore ran")
 }
 
 function updateCurrentQuestion() {
     currentQuestion++;
-    $('.current-question').text(currentQuestion);
-    // console.log("updateCurrentQu ran");
+    $('.current-question').text(`Current Question: ${currentQuestion + 1}`);
+    //console.log("updateCurrentQu ran");
 }
 
 //------------ SCORE KEEPERS-----------
@@ -22,20 +22,19 @@ function updateCurrentQuestion() {
 
 function removeStartQuizButton() {
     $('.js-start-form').remove();
-    console.log("removeStartQuiz ran");
+    //console.log("removeStartQuiz ran");
 };
 
 function addTrackers() {
     $('header').append(`
     <div class="trackers">
             <p>
-                <span class="current-question">Current Question: ${currentQuestion} / 8</span>
-                <span class="score">Correct: ${score} / ${currentQuestion}</span>
+                <span class="current-question">Current Question: 1</span>
+                <span class="score">Score 0 / 8</span>
             </p>
         </div>`
     );
 };
-
 
 
 function renderQuestion() {
@@ -84,16 +83,16 @@ function startQuiz() {
 
 
 function hidePreviousQuestion() {
-    event.stopPropagation();
-    $('p').hide();
+    $('.question').remove();
     console.log("hidePrev ran");
 };
  
 
 function incorrectAnswer() {
-    $('.js-question-area').append(`
-    <p>Sorry, the correct answer was ${questions[currentQuestion].correct}</p>
-    `);
+    // $('.js-question-area').append(`
+    // <p>Sorry, the correct answer was ${questions[currentQuestion].correct}</p>
+    // `);
+    alert(`Sorry, the correct answer was ${questions[currentQuestion].correct}`);
 };
 
 
@@ -104,15 +103,20 @@ function submitAnswer() {
         let correct = questions[currentQuestion].correct;
         let selected = $('input:checked');
         let answer = selected.val();
-        console.log(answer);
         if (answer === undefined) {
-            console.log("need answer");
+            alert("Please choose one of the options.");
         } else if (answer === correct) {
+            hidePreviousQuestion();
             updateCurrentQuestion();
             updateScore();
+            renderQuestion();
+            console.log("CORRECT " + correct);
         } else if (answer !== correct) {
             incorrectAnswer();
+            hidePreviousQuestion();
             updateCurrentQuestion();
+            renderQuestion();
+            console.log("INCORRECT " + correct);
         };
     });
 };
