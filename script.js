@@ -13,7 +13,7 @@ function updateScore() {
 
 function updateCurrentQuestion() {
     currentQuestion++;
-    $('.current-question').text(`Current Question: ${currentQuestion + 1}`);
+    $('.current-question').text(`Current Question: ${currentQuestion + 1} / 8`);
     //console.log("updateCurrentQu ran");
 }
 
@@ -29,7 +29,7 @@ function addTrackers() {
     $('header').append(`
     <div class="trackers">
             <p>
-                <span class="current-question">Current Question: 1</span>
+                <span class="current-question">Current Question: 1 / 8</span>
                 <span class="score">Score 0 / 8</span>
             </p>
         </div>`
@@ -89,12 +89,20 @@ function hidePreviousQuestion() {
  
 
 function incorrectAnswer() {
-    // $('.js-question-area').append(`
-    // <p>Sorry, the correct answer was ${questions[currentQuestion].correct}</p>
-    // `);
     alert(`Sorry, the correct answer was ${questions[currentQuestion].correct}`);
+    hidePreviousQuestion();
+    updateCurrentQuestion();
+    renderQuestion();
 };
 
+
+function correctAnswer() {
+    alert("Correct! Nice Job");
+    hidePreviousQuestion();
+    updateCurrentQuestion();
+    updateScore();
+    renderQuestion();
+}
 
 
 function submitAnswer() {
@@ -106,32 +114,14 @@ function submitAnswer() {
         if (answer === undefined) {
             alert("Please choose one of the options.");
         } else if (answer === correct) {
-            hidePreviousQuestion();
-            updateCurrentQuestion();
-            updateScore();
-            renderQuestion();
+            correctAnswer();
             console.log("CORRECT " + correct);
         } else if (answer !== correct) {
             incorrectAnswer();
-            hidePreviousQuestion();
-            updateCurrentQuestion();
-            renderQuestion();
             console.log("INCORRECT " + correct);
         };
     });
 };
-
-
-
-
-$(submitAnswer());
-
-
-
-
-
-
-
 
 
 
@@ -144,9 +134,25 @@ $(submitAnswer());
 
 function runQuizApp() {
     startQuiz();
+    submitAnswer();
 }
 
 $(runQuizApp());
+
+$(function() {  
+    if (currentQuestion >= 2) {
+        alert("scorescreen");
+    //     hidePreviousQuestion();
+    //     $('.js-question-area').append( `
+    //         <div class="trackers">
+    //             <p>
+    //                 <span class="current-question">Current Question: 1 / 8</span>
+    //                 <span class="score">Score 0 / 8</span>
+    //             </p>
+    //         </div>
+    //     `);
+     };
+});
 
 // -----------------Callback function ------------------------
 
