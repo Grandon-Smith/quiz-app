@@ -1,9 +1,28 @@
 
 
+$(function() {
+    $('main').append(`
+        <div class="js-question-area">
+        <div class="startpic-box">
+        <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple71/v4/a4/dd/05/a4dd05c6-4e03-312b-b8ed-abdbdadef6c6/source/512x512bb.jpg" class="startpic">
+        </div>
+        <form class="start-form js-start-form">
+            <input id="start-quiz js-start-quiz" type="button" value="Start Quiz!">
+        </form>
+        
+        </div>`);
+});
+
+
+
+
+
+
 //------------ SCORE KEEPERS-----------
 
 let score = 0;
 let currentQuestion = 0;
+
 
 function updateScore() {
     score++;
@@ -15,9 +34,15 @@ function updateCurrentQuestion() {
     currentQuestion++;
     $('.current-question').text(`Current Question: ${currentQuestion + 1} / 8`);
     //console.log("updateCurrentQu ran");
+
+    if (currentQuestion >= questions.length) {
+        hidePreviousQuestion();
+        scoreScreen();       
+     };
 }
 
 //------------ SCORE KEEPERS-----------
+
 
 
 function removeStartQuizButton() {
@@ -28,13 +53,36 @@ function removeStartQuizButton() {
 function addTrackers() {
     $('header').append(`
     <div class="trackers">
-            <p>
-                <span class="current-question">Current Question: 1 / 8</span>
-                <span class="score">Score 0 / 8</span>
-            </p>
+            <p class="current-question">Current Question: 1 / 8</p>
+            <p class="score">Score 0 / 8</span>
         </div>`
     );
 };
+
+
+
+
+function scoreScreen() {
+    $('.current-question').hide();
+    $('.score').remove();
+        $('main').append(`
+            <div class="trackers center">
+                <p><strong>
+                    Your Score: ${score} / 8
+                <strong></p>
+                <form>
+                    <div class="submit-div">
+                        <input id="js-retake-quiz" type="submit" value="Try Again?">
+                    </div>
+                </form>
+            </div> 
+        `);
+}
+
+
+
+
+
 
 
 function renderQuestion() {
@@ -47,36 +95,54 @@ function renderQuestion() {
         <form>
             <ul>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[0]}">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[0]}" aria-pressed="false">
                     <label for="answer1">${questions[currentQuestion].answers[0]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[1]}">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[1]}" aria-pressed="false">
                     <label for="answer2">${questions[currentQuestion].answers[1]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[2]}">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[2]}" aria-pressed="false">
                     <label for="answer3">${questions[currentQuestion].answers[2]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[3]}">
+                    <input type="radio" id="answer" name="answer" value="${questions[currentQuestion].answers[3]}" aria-pressed="false">
                     <label for="answer4">${questions[currentQuestion].answers[3]}</label>
                 </li>
             </ul>
-        
-            <input id="question-submit" type="button" value="Submit Answer">
+            <div class="submit-div">
+                <input id="question-submit" type="submit" value="Submit Answer">
+            </div>
         </form>
     </div>`
     );
 };
 
 
+function moveStartPic() {
+    $('img').remove();
+    $('h1').hide();
+    $('header').prepend(`
+        <div class="startpic-box">
+            <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple71/v4/a4/dd/05/a4dd05c6-4e03-312b-b8ed-abdbdadef6c6/source/512x512bb.jpg" class="startpic">
+        </div>
+    `);
+}
+
+
+function removePadding() {
+    $('header').removeClass('padding');
+};
+
 
 function startQuiz() {
-    $('.js-start-form').on('click', event => {
+    $('main').on('click','.js-start-form', event => {
         removeStartQuizButton();
         renderQuestion();
         addTrackers();
+        removePadding();
+        moveStartPic();
     });
 };
 
@@ -97,7 +163,6 @@ function incorrectAnswer() {
 
 
 function correctAnswer() {
-    alert("Correct! Nice Job");
     hidePreviousQuestion();
     updateCurrentQuestion();
     updateScore();
@@ -106,7 +171,7 @@ function correctAnswer() {
 
 
 function submitAnswer() {
-    $('.js-question-area').on('click', '#question-submit', event => {
+    $('main').on('click', '#question-submit', event => {
         event.preventDefault();
         let correct = questions[currentQuestion].correct;
         let selected = $('input:checked');
@@ -114,18 +179,17 @@ function submitAnswer() {
         if (answer === undefined) {
             alert("Please choose one of the options.");
         } else if (answer === correct) {
+
+            // $('.js-question-area').on('event', '#question-submit', event => {
+            //     this.prepend("Correct!")
+            // });
+            // alert("Correct!")
             correctAnswer();
-            console.log("CORRECT " + correct);
         } else if (answer !== correct) {
             incorrectAnswer();
-            console.log("INCORRECT " + correct);
         };
     });
 };
-
-
-
-
 
 
 
@@ -138,21 +202,6 @@ function runQuizApp() {
 }
 
 $(runQuizApp());
-
-$(function() {  
-    if (currentQuestion >= 2) {
-        alert("scorescreen");
-    //     hidePreviousQuestion();
-    //     $('.js-question-area').append( `
-    //         <div class="trackers">
-    //             <p>
-    //                 <span class="current-question">Current Question: 1 / 8</span>
-    //                 <span class="score">Score 0 / 8</span>
-    //             </p>
-    //         </div>
-    //     `);
-     };
-});
 
 // -----------------Callback function ------------------------
 

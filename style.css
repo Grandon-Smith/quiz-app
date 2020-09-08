@@ -4,46 +4,54 @@
 
 body {
     margin: 0px;
-    padding: 0px;
+    padding: 5px;
     font-size: 24px;
     font-family: arial;
-    /* margin: 1%; */
+    /* background-color: green; */
 }
 
 main {
-    margin: 0% 0%;
-    background-color: rgb(221, 175, 175);
+    margin: 0 0;
+    padding: 0 0 30px 0;
+    /* background-color: rgb(221, 175, 175); */
 }
 
 
 header {
-     background-color: rgb(221, 175, 175);
+     /* background-color: rgb(221, 175, 175); */
+     padding-top: 40px;
+     /* outline: blue dotted 2px; */
+     text-align: center;
+}
+
+.padding {
+    padding-top: 150px;
 }
 
 
  header h1 {
-     /* outline: blue solid 2px; */
      margin-top: 0px;
-     padding-top: 20px;
      text-align: center;
      font-size: 50px;
  }
 
 
 header > div {
-    outline: green solid 2px;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    margin-top: 10px;
 }
 
 header > div > p {
-    outline: red dotted 2px;
-    margin: 10px 5px;
+    /* outline: red dotted 2px; */
+    width: 100%;
+    margin: 5px 0px;
+    padding: 5px 0px;
 }
 
 form {
-    outline: green dashed 3px;
-    padding-top: 50px;
+    /* outline: green dashed 3px; */
+    padding-top: 10px;
 }
 
 input {
@@ -55,9 +63,8 @@ input {
     text-align: center;
 }
 
-
-#question-submit {
-    margin-left: 45%;
+.submit-div {
+    text-align: center;
 }
 
 ul {
@@ -65,9 +72,27 @@ ul {
 }
 
 .question {
-    padding: 50px;
+    padding: 15px;
 }
 
 .current-question {
     margin-right: 120px;
+}
+
+.startpic {
+    width: 50%;
+    border-radius: 30%;
+    max-width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+button {
+    border-radius: 40%;
+}
+
+.center {
+    text-align: center;
 }
