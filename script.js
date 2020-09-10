@@ -66,7 +66,7 @@ function scoreScreen() {
     $('.current-question').hide();
     $('.score').remove();
         $('main').append(`
-            <div class="trackers center">
+            <div class="trackers center scoreDiv">
                 <p><strong>
                     Your Score: ${score} / 8
                 <strong></p>
@@ -180,9 +180,6 @@ function submitAnswer() {
             alert("Please choose one of the options.");
         } else if (answer === correct) {
 
-            // $('.js-question-area').on('event', '#question-submit', event => {
-            //     this.prepend("Correct!")
-            // });
             // alert("Correct!")
             correctAnswer();
         } else if (answer !== correct) {
