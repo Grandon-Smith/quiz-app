@@ -92,6 +92,7 @@ input[type='submit'] {
     background-color: rgb(52, 243, 233);
     border-radius: 20px;
     font-size: 20px;
+    margin: 5%;
 }
 
 .submit-div {
