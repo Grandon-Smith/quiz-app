@@ -1,6 +1,8 @@
 
 
 $(function() {
+    // runs once at load to render the start screen
+    
     $('main').append(`
         <div class="js-question-area">
         <div class="startpic-box">
@@ -14,40 +16,30 @@ $(function() {
 });
 
 
-
-
-
-
 //------------ SCORE KEEPERS-----------
 
 let score = 0;
 let currentQuestion = 0;
 
-
 function updateScore() {
     score++;
     $('.score').text(`Score: ${score} / 8`);
-    //console.log("updateScore ran")
+    console.log("updateScore ran")
 }
 
 function updateCurrentQuestion() {
     currentQuestion++;
     $('.current-question').text(`Current Question: ${currentQuestion + 1} / 8`);
-    //console.log("updateCurrentQu ran");
-
-    if (currentQuestion >= questions.length) {
-        hidePreviousQuestion();
-        scoreScreen();       
-     };
+    console.log("updateCurrentQuestion ran");
 }
 
 //------------ SCORE KEEPERS-----------
 
 
 
+
 function removeStartQuizButton() {
     $('.js-start-form').remove();
-    //console.log("removeStartQuiz ran");
 };
 
 function addTrackers() {
@@ -60,9 +52,10 @@ function addTrackers() {
 };
 
 
-
-
 function scoreScreen() {
+    //only runs once at the end of the quiz (shown in the if statement in submitAnswer function)
+    // shows score at the end a button prompting user to try again.
+    console.log('score screen ran');
     $('.current-question').hide();
     $('.score').remove();
         $('main').append(`
@@ -80,13 +73,10 @@ function scoreScreen() {
 }
 
 
-
-
-
-
-
 function renderQuestion() {
-    console.log(currentQuestion);
+    //This is the template to which all questions will be rendered, allowing them to be updated
+    // as the quiz questions progress
+    console.log(`question ${currentQuestion + 1} was rendered`);
     $('.js-question-area').append( `
     <div class="question">
         <p class="js-question">
@@ -137,6 +127,9 @@ function removePadding() {
 
 
 function startQuiz() {
+    //upon clicking start quiz, the button will dissapear, the first question rendered, the socre and current
+    // question trackers will be rendered above the question area and the picture will move up, replacing the 
+    // quiz title.
     $('main').on('click','.js-start-form', event => {
         removeStartQuizButton();
         renderQuestion();
@@ -147,49 +140,66 @@ function startQuiz() {
 };
 
 
-
 function hidePreviousQuestion() {
     $('.question').remove();
-    console.log("hidePrev ran");
+    console.log("hidePreviousQuestion ran")
 };
  
-
 function incorrectAnswer() {
     alert(`Sorry, the correct answer was ${questions[currentQuestion].correct}`);
     hidePreviousQuestion();
     updateCurrentQuestion();
-    renderQuestion();
 };
 
 
 function correctAnswer() {
     hidePreviousQuestion();
     updateCurrentQuestion();
-    updateScore();
-    renderQuestion();
+    updateScore();  
 }
 
 
 function submitAnswer() {
     $('main').on('click', '#question-submit', event => {
         event.preventDefault();
+
+        //assigning variables to be used in the if statement below this and selecting
+        // the input from the radio buttons to be assessed.
+
         let correct = questions[currentQuestion].correct;
         let selected = $('input:checked');
         let answer = selected.val();
-        if (answer === undefined) {
-            alert("Please choose one of the options.");
-        } else if (answer === correct) {
 
-            // alert("Correct!")
-            correctAnswer();
-        } else if (answer !== correct) {
-            incorrectAnswer();
-        };
+        //Needed a separate if statement to determine if the current question was the last one
+        // and if that was the case, to run the score screen function, rather than render the
+        // next question. I'm sure there's a more efficient way to code this, but for now
+        // this was the best I could come up with. 
+
+        if (currentQuestion === (questions.length - 1)) {
+            console.log("GOT IT");
+            if (answer === undefined) {
+                alert("Please choose one of the options.");
+            } else if (answer === correct) {
+                correctAnswer();
+                scoreScreen();
+            } else if (answer !== correct) {
+                incorrectAnswer();
+                scoreScreen();
+            } return
+        } else if (currentQuestion < (questions.length)) {
+            
+            if (answer === undefined) {
+                alert("Please choose one of the options.");
+            } else if (currentQuestion < questions.length && answer === correct) {
+                correctAnswer();
+                renderQuestion();
+            } else if (currentQuestion < questions.length && answer !== correct) {
+                incorrectAnswer();
+                renderQuestion();
+            } return
+        } 
     });
 };
-
-
-
 
 // -----------------Callback function ------------------------
 
