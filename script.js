@@ -1,7 +1,9 @@
 // --------- Questions object Array -------------
 
 const questions = [
-    
+    {
+        
+    },
     {
        question: 'How many bones are there in a typical human body?',
        answers: ['300', '140', '250', '206'], 
@@ -65,7 +67,7 @@ function renderStartScreen() {
 
 
 let score = 0;
-    let currentQuestion = 0;
+let currentQuestion = 0;
 
 function updateScore() {
     score++;
