@@ -63,7 +63,6 @@ function renderStartScreen() {
         </div>`);
 };
 
-
 //------------ SCORE KEEPERS-----------
 
 
