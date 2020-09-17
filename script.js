@@ -1,50 +1,51 @@
 // --------- Questions object Array -------------
 
-const questions = [
-    {
-        
-    },
-    {
-       question: 'How many bones are there in a typical human body?',
-       answers: ['300', '140', '250', '206'], 
-       correct: '206'
-    }, 
-    {
-        question: 'Which is the largest internal organ?',
-        answers: ['Stomach', 'Kidney', 'Liver', 'Large intestine'], 
-        correct: 'Liver'
-     }, 
-     {
-        question: 'What is the bone going between the knee and the hip?',
-        answers: ['Femur', 'Radius', 'Mandible', 'Orbital'], 
-        correct: 'Femur'
-     }, 
-     {
-        question: 'Which of the following is not one of the 5 senses?',
-        answers: ['Touch', 'Balance', 'Sight', 'Smell'],
-        correct:'Balance'
-     }, 
-     {
-        question: '_____ are the structures that carry electrical signals to and from your brain.',
-        answers: ['Blood vessels', 'Bones', 'Nerves', 'Lymph vessels'],
-        correct:'Nerves'
-     }, 
-     {
-        question: 'The inner ear has 3 bones in it on each side. Which of these is not one of them?',
-        answers: ['Stapes', 'Malleus', 'Incus', 'Phalange'],
-        correct:'Phalange'
-     }, 
-     {
-        question: 'Food and liquid travel from the mouth to the stomach via the _____.',
-        answers: ['Aorta', 'Esophagus', 'Trachea', 'Cochlea'],
-        correct:'Esophagus'
-     }, 
-     {
-        question: 'This part of the brain is responsible for “higher level” thinking and problem solving.',
-        answers: ['Frontal cortex', 'Limbic system', 'Optic nerve', 'Brainstem'],
-        correct:'Frontal cortex'
-     }, 
-];
+var store = {
+    questions: [
+        {
+           question: 'How many bones are there in a typical human body?',
+           answers: ['300', '140', '250', '206'], 
+           correct: '206'
+        }, 
+        {
+            question: 'Which is the largest internal organ?',
+            answers: ['Stomach', 'Kidney', 'Liver', 'Large intestine'], 
+            correct: 'Liver'
+         }, 
+         {
+            question: 'What is the bone going between the knee and the hip?',
+            answers: ['Femur', 'Radius', 'Mandible', 'Orbital'], 
+            correct: 'Femur'
+         }, 
+         {
+            question: 'Which of the following is not one of the 5 senses?',
+            answers: ['Touch', 'Balance', 'Sight', 'Smell'],
+            correct:'Balance'
+         }, 
+         {
+            question: '_____ are the structures that carry electrical signals to and from your brain.',
+            answers: ['Blood vessels', 'Bones', 'Nerves', 'Lymph vessels'],
+            correct:'Nerves'
+         }, 
+         {
+            question: 'The inner ear has 3 bones in it on each side. Which of these is not one of them?',
+            answers: ['Stapes', 'Malleus', 'Incus', 'Phalange'],
+            correct:'Phalange'
+         }, 
+         {
+            question: 'Food and liquid travel from the mouth to the stomach via the _____.',
+            answers: ['Aorta', 'Esophagus', 'Trachea', 'Cochlea'],
+            correct:'Esophagus'
+         }, 
+         {
+            question: 'This part of the brain is responsible for “higher level” thinking and problem solving.',
+            answers: ['Frontal cortex', 'Limbic system', 'Optic nerve', 'Brainstem'],
+            correct:'Frontal cortex'
+         }, 
+    ],
+    currentQuestion: 0,
+    score: 0
+};
 
 
 function renderStartScreen() {
@@ -66,18 +67,16 @@ function renderStartScreen() {
 //------------ SCORE KEEPERS-----------
 
 
-let score = 0;
-let currentQuestion = 0;
 
 function updateScore() {
-    score++;
-    $('.score').text(`Score: ${score} / 8`);
+    store.score++;
+    $('.score').text(`Score: ${store.score} / 8`);
     console.log("updateScore ran")
 }
 
 function updateCurrentQuestion() {
-    currentQuestion++;
-    $('.current-question').text(`Current Question: ${currentQuestion + 1} / 8`);
+    store.currentQuestion++;
+    $('.current-question').text(`Current Question: ${store.currentQuestion + 1} / 8`);
     console.log("updateCurrentQuestion ran");
 }
 
@@ -96,7 +95,7 @@ function scoreScreen() {
         $('main').append(`
             <div class="trackers center scoreDiv">
                 <p><strong>
-                    Your Score: ${score} / 8
+                    Your Score: ${store.score} / 8
                 <strong></p>
                 <form>
                     <div class="submit-div">
@@ -131,7 +130,7 @@ function submitAnswer() {
         //assigning variables to be used in the if statement below this and selecting
         // the input from the radio buttons to be assessed.
 
-        let correct = questions[currentQuestion].correct;
+        let correct = store.questions[currentQuestion].correct;
         let selected = $('input:checked');
         let answer = selected.val();
 
@@ -140,7 +139,7 @@ function submitAnswer() {
         // next question. I'm sure there's a more efficient way to code this, but for now
         // this was the best I could come up with. 
 
-        if (currentQuestion === (questions.length - 1)) {
+        if (store.currentQuestion === (store.questions.length - 1)) {
             console.log("GOT IT");
             if (answer === undefined) {
                 alert("Please choose one of the options.");
@@ -151,15 +150,15 @@ function submitAnswer() {
                 incorrectAnswer();
                 scoreScreen();
             } return
-        } else if (currentQuestion < (questions.length)) {
+        } else if (store.currentQuestion < (store.questions.length)) {
             
             if (answer === undefined) {
                 alert("Please choose one of the options.");
-            } else if (currentQuestion < questions.length && answer === correct) {
+            } else if (store.currentQuestion < store.questions.length && answer === correct) {
                 alert("Correct!")
                 correctAnswer();
                 renderQuestion();
-            } else if (currentQuestion < questions.length && answer !== correct) {
+            } else if (store.currentQuestion < store.questions.length && answer !== correct) {
                 incorrectAnswer();
                 renderQuestion();
             } return
@@ -185,29 +184,29 @@ function addTrackers() {
 function renderQuestion() {
     //This is the template to which all questions will be rendered, allowing them to be updated
     // as the quiz questions progress
-    console.log(`question ${currentQuestion + 1} was rendered`);
+    console.log(`question ${store.currentQuestion + 1} was rendered`);
     $('.js-question-area').append( `
     <div class="question">
         <p class="js-question">
-            ${questions[currentQuestion].question}
+            ${store.questions[currentQuestion].question}
         </p>
         <form>
             <ul>
                 <li>
-                    <input type="radio" id="answer1" name="answer" value="${questions[currentQuestion].answers[0]}" aria-pressed="false">
-                    <label for="answer1">${questions[currentQuestion].answers[0]}</label>
+                    <input type="radio" id="answer1" name="answer" value="${store[currentQuestion].answers[0]}" aria-pressed="false">
+                    <label for="answer1">${store[currentQuestion].answers[0]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer2" name="answer" value="${questions[currentQuestion].answers[1]}" aria-pressed="false">
-                    <label for="answer2">${questions[currentQuestion].answers[1]}</label>
+                    <input type="radio" id="answer2" name="answer" value="${store[currentQuestion].answers[1]}" aria-pressed="false">
+                    <label for="answer2">${store[currentQuestion].answers[1]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer3" name="answer" value="${questions[currentQuestion].answers[2]}" aria-pressed="false">
-                    <label for="answer3">${questions[currentQuestion].answers[2]}</label>
+                    <input type="radio" id="answer3" name="answer" value="${store[currentQuestion].answers[2]}" aria-pressed="false">
+                    <label for="answer3">${store[currentQuestion].answers[2]}</label>
                 </li>
                 <li>
-                    <input type="radio" id="answer4" name="answer" value="${questions[currentQuestion].answers[3]}" aria-pressed="false">
-                    <label for="answer4">${questions[currentQuestion].answers[3]}</label>
+                    <input type="radio" id="answer4" name="answer" value="${store[currentQuestion].answers[3]}" aria-pressed="false">
+                    <label for="answer4">${store[currentQuestion].answers[3]}</label>
                 </li>
             </ul>
             <div class="submit-div">
