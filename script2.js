@@ -48,6 +48,16 @@ var store = {
     startQuiz: false
 };
 
+//-----------------------------ENDING THE QUIZ-------------------------------------
+
+function tryAgain() {
+    $('main').on('click', '#jsRetakeQuiz', event => {
+        store.currentQuestion = 0;
+        store.score = 0;
+        store.startQuiz = true;
+        renderQuiz();
+    })
+}
 
 function scoreScreen() {
     //only runs once at the end of the quiz (shown in the if statement in submitAnswer function)
@@ -62,14 +72,15 @@ function scoreScreen() {
                 <strong></p>
                 <form>
                     <div class="submit-div">
-                        <input id="js-retake-quiz" type="submit" value="Try Again?">
+                        <input id="jsRetakeQuiz" type="submit" value="Try Again?">
                     </div>
                 </form>
             </div> 
         `);
 }
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-
+//-------------------------------DEALING WITH QUESTIONS---------------------------------
 
 function nextQuestion() {
     $('main').on ('click', '#next', event => {
@@ -77,7 +88,6 @@ function nextQuestion() {
         renderQuiz();
     })
 }
-
 
 function informAnswerStatus(status) {
     if (status === 'correct') {
@@ -98,28 +108,22 @@ function showAnswerStatus() {
         event.preventDefault();
         // assigning variables to be used in the if statement below this and selecting
         // the input from the radio buttons to be assessed.
-
         let correct = store.questions[store.currentQuestion].correct;
         let selected = $('input:checked');
         let answer = selected.val();
-
         if (answer === correct) {
             $('.submit-div').html(informAnswerStatus('correct'))
             store.score++
             store.currentQuestion++;
-
         } else if (answer !== correct) {
             $('.submit-div').html(informAnswerStatus('incorrect'))
-            
             store.currentQuestion++;
-        }
-        
-            
+        }  
     });
 }    
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-
-// -----------------FORMAT SCORE AND CURRENT QUESTION----------------------
+// -----------------------FORMAT SCORE AND CURRENT QUESTION-----------------------------
 
 function formatQuizTrackers() {
     
@@ -212,14 +216,11 @@ function beginQuiz() {
         renderQuiz();
         moveStartPic();
     });
-    
 }
-
 
 function renderQuiz() {
     if (store.startQuiz === false) {
         $('main').html(startScreen());
-
     } else if (store.startQuiz === true && store.currentQuestion < store.questions.length) {
         $('header').html(formatQuizTrackers());
         $('main').html(formatQuestionAndAnswer());
@@ -227,8 +228,6 @@ function renderQuiz() {
         scoreScreen();
     }
 }
-
-
 // -----------------Callback function ------------------------
 
 function runQuizApp() {
@@ -236,6 +235,7 @@ function runQuizApp() {
     renderQuiz();
     showAnswerStatus();
     nextQuestion();
+    tryAgain();
 }
 
 $(runQuizApp());
